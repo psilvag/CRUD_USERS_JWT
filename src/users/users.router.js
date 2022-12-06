@@ -1,12 +1,16 @@
 const router = require('express').Router()
-
 const userServices = require('./users.services')
 
-router.get("/", userServices.getAllUsers) //? /api/v1/users
-router.post("/", userServices.postUser) //? /api/v1/users
+const passportJWT=require('../middleware/auth.middleware')
 
-router.get("/:id", userServices.getUserById) //? /api/v1/users/:id
-router.patch('/:id', userServices.patchUser) //? /api/v1/users/:id
-router.delete('/:id', userServices.deleteUser) //? /api/v1/users/:id
+
+
+
+router.get("/", userServices.getAllUsers) 
+router.post("/", userServices.postUser) 
+ 
+router.get("/:id", userServices.getUserById) 
+router.patch('/:id', passportJWT.authenticate('jwt',{session:false}), userServices.patchUser) 
+router.delete('/:id',passportJWT.authenticate('jwt',{session:false}), userServices.deleteUser) 
 
 module.exports = router
