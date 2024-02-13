@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const userServices = require('./users.services')
-
 const passportJWT=require('../middleware/auth.middleware')
 
 
